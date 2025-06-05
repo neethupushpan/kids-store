@@ -14,7 +14,7 @@ const authSeller = (req, res, next) => {
       return res.status(401).json({ message: "Invalid token" });
     }
 
-    // ✅ Check for admin role
+    // ✅ Check for seller role
     if (decodedToken.role !== 'seller' ){
       return res.status(403).json({ message: "Access denied. Admins only." });
     }
