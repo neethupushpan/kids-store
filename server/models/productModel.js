@@ -17,13 +17,17 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    
-    required: [true, 'Category is required']
+    enum: ['Boys', 'Girls', 'Unisex'],
+    required: [true, 'Product category is required']
   },
   size: {
-    type: [String], // e.g., ['S', 'M', 'L']
-    default: []
-  },
+  type: [String],  // Array of strings like ["1-2Y", "2-3Y", "3-4Y"]
+  required: [true, 'At least one size is required'],
+  validate: {
+    validator: val => val.length > 0,
+    message: 'Please provide at least one size'
+  }
+},
   stock: {
     type: Number,
     default: 0,
@@ -31,15 +35,17 @@ const productSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: null // You can store URL or local path
+    // You can store URL or local path
   },
-  isFeatured: {
-    type: Boolean,
-    default: false
+  sellerId  :{
+    type:mongoose.Schema.Types.ObjectId,
+    ref: "Seller",
+required: [true, 'sellerId is required']
+
   },
-  brand: {
-    type: String,
-    default: 'Kids Brand'
+    createdAt: {
+    type: Date,
+    default: Date.now
   }
 }, {
   timestamps: true

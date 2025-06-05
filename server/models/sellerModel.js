@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const sellerSchema = new mongoose.Schema({
  name:{
     type:String,
     required:[true,'Name is required']
@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
     required:[true,'password is required'],
     minLength:[8,'password must be at least 8 characters long'],
     maxlength:[128,'password cannotbexceed 128 characters ']
+ },
+ storeName:{
+   type:String
  },
  role:{
     type:String,
@@ -32,4 +35,4 @@ const userSchema = new mongoose.Schema({
 
 
 
-module.exports =mongoose.model('User',userSchema)
+module.exports =mongoose.model('Seller',sellerSchema)

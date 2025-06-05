@@ -11,7 +11,12 @@ const orderItemSchema = new mongoose.Schema({
     required: true,
     min: 1,
     default: 1
-  }
+  },
+  price: {
+    type: Number,
+    required: [true, 'Price is required'],
+    min: [0, 'Price must be a positive number']
+  },
 });
 
 const orderSchema = new mongoose.Schema({

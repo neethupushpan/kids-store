@@ -1,23 +1,20 @@
-const express = require('express');
-const prodctRouter = express.Router();
-
+const express = require("express");
+const productRouter = express.Router();
+const authSeller = require("../middlewares/authSeller");
 const {
+  createProduct,
   getAllProducts,
   getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} = require('../controllers/productController');
+updateProduct,
+deleteProduct} = require("../controllers/productController");
+const upload = require("../middlewares/multer")
 
-const { authAdmin } = require('../middlewares/authAdmin');
 
-// Public routes
-prodctRouter.get('/', getAllProducts);
-prodctRouter.get('/:productId', getProductById);
+// Seller-only routes
+productRouter.post('/create', authSeller, upload.single('image'), createProduct);
+productRouter.get('/', getAllProducts);
+productRouter.get('/:id', getProductById);
+productRouter.patch('/update/:id', authSeller, updateProduct);
+productRouter.delete('/delete/:id', authSeller, deleteProduct);
 
-// Admin-only routes
-prodctRouter.post('/', authAdmin, createProduct);
-prodctRouter.patch('/:productId', authAdmin, updateProduct);
-prodctRouter.delete('/:productId', authAdmin, deleteProduct);
-
-module.exports = prodctRouter;
+module.exports = productRouter ;

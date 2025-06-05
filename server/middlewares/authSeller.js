@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const authAdmin = (req, res, next) => {
+const authSeller = (req, res, next) => {
   try {
     const { token } = req.cookies;
 
@@ -15,7 +15,7 @@ const authAdmin = (req, res, next) => {
     }
 
     // ✅ Check for admin role
-    if (decodedToken.role !== 'admin' ){
+    if (decodedToken.role !== 'seller' ){
       return res.status(403).json({ message: "Access denied. Admins only." });
     }
 
@@ -27,4 +27,4 @@ const authAdmin = (req, res, next) => {
   }
 };
 
-module.exports = authAdmin;
+module.exports = authSeller;

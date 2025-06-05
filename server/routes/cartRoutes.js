@@ -9,7 +9,7 @@ const {
   clearCart,
 } = require('../controllers/cartController');
 
-const { authUser } = require('../middlewares/authUser');
+const  authUser  = require('../middlewares/authUser')
 
 // Get current user's cart
 cartRoutes.get('/', authUser, getCart);
